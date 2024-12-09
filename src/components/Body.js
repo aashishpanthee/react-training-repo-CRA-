@@ -1,62 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
-import { ProductItems } from '../utils/mockData';
+import { PRODUCT_ITEMS } from '../utils/mockData';
 import Category from './Category';
+import ShimmerCard from './ShimmerCard';
 
 const Body = () => {
-  const [filteredItems, setFilteredItems] = useState(ProductItems);
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  useEffect(() => {
+    fetchApiProducts();
+  }, []);
 
-  function handleTopRatedProducts() {
+  async function fetchApiProducts() {
+    const data = await fetch('https://fakestoreapi.com/products');
+    const productsData = await data.json();
+    setFilteredItems(productsData);
+    setAllProducts(productsData);
+  }
+
+  function handleRatingFilter(minRate, maxRate) {
     setFilteredItems(
-      filteredItems.filter((product) => product.rating.rate > 4)
+      allProducts.filter(
+        (product) =>
+          product.rating.rate >= minRate && product.rating.rate < maxRate
+      )
     );
   }
-  function handleRatingFilter(minRate, maxRate) {}
-  function handleResetFilter() {}
+
+  function handleResetFilter() {
+    setFilteredItems(allProducts);
+  }
+  if (filteredItems.length === 0) {
+    return (
+      <div className='flex flex-wrap justify-center gap-4 p-4'>
+        {Array(8)
+          .fill('')
+          .map((_, index) => (
+            <ShimmerCard key={index} />
+          ))}
+      </div>
+    );
+  }
+
   return (
     <section className='flex flex-col gap-4 px-2 py-2 '>
       <div className='flex gap-3'>
         <input
           type='text'
           className='px-4 py-2 pr-10 text-sm text-gray-700 bg-white border border-gray-800 rounded-lg shadow-sm w-80 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400'
-          placeholder='Search...'
+          placeholder='Search the products...'
         />
-        Search
+        <button>Search</button>
       </div>
       <div className='flex flex-wrap gap-2'>
         <button
-          className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
+          className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg '
           onClick={handleResetFilter}
         >
           All Products
         </button>
         <button
           className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
-          onClick={() => handleRatingFilter(0, 1)}
+          onClick={() => {
+            handleRatingFilter(0, 1);
+          }}
         >
           Rating 0-1 ⭐
         </button>
         <button
           className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
-          onClick={() => handleRatingFilter(1, 2)}
+          onClick={() => {
+            handleRatingFilter(1, 2);
+          }}
         >
           Rating 1-2 ⭐
         </button>
         <button
           className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
-          onClick={() => handleRatingFilter(2, 3)}
+          onClick={() => {
+            handleRatingFilter(2, 3);
+          }}
         >
           Rating 2-3 ⭐
         </button>
         <button
           className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
-          onClick={() => handleRatingFilter(3, 4)}
+          onClick={() => {
+            handleRatingFilter(3, 4);
+          }}
         >
           Rating 3-4 ⭐
         </button>
         <button
           className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
-          onClick={() => handleRatingFilter(4, 5)}
+          onClick={() => {
+            handleRatingFilter(4, 5);
+          }}
         >
           Rating 4-5 ⭐
         </button>
