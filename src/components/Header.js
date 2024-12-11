@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { LOGO_URL } from '../utils/constants';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [btnName, setBtnName] = useState(false);
@@ -11,13 +12,13 @@ const Header = () => {
       </div>
       <div className='flex justify-between list-none w-96'>
         <li>
-          <a href=''>Home</a>
+          <Link to='/'>Home</Link>
         </li>
         <li>
-          <a href=''>About</a>
+          <Link to='/about'>About</Link>
         </li>
         <li>
-          <a href=''>Contact</a>
+          <Link to='/contact'>Contact</Link>
         </li>
       </div>
       <div>Cart</div>
