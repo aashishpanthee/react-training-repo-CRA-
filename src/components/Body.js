@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
-import { PRODUCT_ITEMS } from '../utils/mockData';
 import Category from './Category';
 import ShimmerCard from './ShimmerCard';
 
 const Body = () => {
   const [filteredItems, setFilteredItems] = useState([]);
+  const [searchText, setSearchText] = useState('');
   const [allProducts, setAllProducts] = useState([]);
   useEffect(() => {
     fetchApiProducts();
@@ -30,10 +30,16 @@ const Body = () => {
   function handleResetFilter() {
     setFilteredItems(allProducts);
   }
+  function handleSearchFilter() {
+    const searchedProducts = allProducts.filter((product) =>
+      product.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredItems(searchedProducts);
+  }
   if (filteredItems.length === 0) {
     return (
       <div className='flex flex-wrap justify-center gap-4 p-4'>
-        {Array(8)
+        {Array(20)
           .fill('')
           .map((_, index) => (
             <ShimmerCard key={index} />
@@ -41,7 +47,6 @@ const Body = () => {
       </div>
     );
   }
-
   return (
     <section className='flex flex-col gap-4 px-2 py-2 '>
       <div className='flex gap-3'>
@@ -49,8 +54,12 @@ const Body = () => {
           type='text'
           className='px-4 py-2 pr-10 text-sm text-gray-700 bg-white border border-gray-800 rounded-lg shadow-sm w-80 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400'
           placeholder='Search the products...'
+          value={searchText}
+          onChange={(event) => {
+            setSearchText(event.target.value);
+          }}
         />
-        <button>Search</button>
+        <button onClick={handleSearchFilter}>Search</button>
       </div>
       <div className='flex flex-wrap gap-2'>
         <button
@@ -58,14 +67,6 @@ const Body = () => {
           onClick={handleResetFilter}
         >
           All Products
-        </button>
-        <button
-          className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
-          onClick={() => {
-            handleRatingFilter(0, 1);
-          }}
-        >
-          Rating 0-1 ⭐
         </button>
         <button
           className='px-4 py-2 font-semibold text-white transition-colors duration-200 bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg'
