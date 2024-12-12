@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import Category from './Category';
 import ShimmerCard from './ShimmerCard';
+import { Link } from 'react-router-dom';
 
 const Body = () => {
   const [filteredItems, setFilteredItems] = useState([]);
@@ -107,7 +108,9 @@ const Body = () => {
           Total Items: {filteredItems.length}
         </h2>
         {filteredItems.map((product) => (
-          <ProductCard productItem={product} key={product.id} />
+          <Link to={'/products/' + product.id}>
+            <ProductCard productItem={product} key={product.id} />
+          </Link>
         ))}
       </div>
     </section>

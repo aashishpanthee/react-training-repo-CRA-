@@ -4,6 +4,7 @@ import About from '../components/About';
 import Error from '../components/Error';
 import Body from '../components/Body';
 import Contact from '../components/Contact';
+import ProductCardDetail from '../components/ProductCardDetail';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: '/contact',
         element: <Contact />,
+      },
+      {
+        path: '/products/:id',
+        element: <ProductCardDetail />,
       },
     ],
   },
