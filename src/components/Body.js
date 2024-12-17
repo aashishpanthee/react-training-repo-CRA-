@@ -108,8 +108,8 @@ const Body = () => {
           Total Items: {filteredItems.length}
         </h2>
         {filteredItems.map((product) => (
-          <Link to={'/products/' + product.id}>
-            <ProductCard productItem={product} key={product.id} />
+          <Link to={'/products/' + product.id} key={product.id}>
+            <ProductCard productItem={product} />
           </Link>
         ))}
       </div>
