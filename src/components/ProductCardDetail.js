@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ShimmerCard from './ShimmerCard';
 
 const ProductCardDetail = () => {
   const { id } = useParams();
@@ -16,7 +15,7 @@ const ProductCardDetail = () => {
   }, [id]);
 
   if (!productDetail) {
-    return <ShimmerCard />;
+    return <ProductCardDetailShimmer />;
   }
 
   const { title, price, description, category, image, rating } = productDetail;
@@ -90,3 +89,59 @@ const ProductCardDetail = () => {
 };
 
 export default ProductCardDetail;
+
+const ProductCardDetailShimmer = () => {
+  return (
+    <div className='container px-4 py-8 mx-auto'>
+      <div className='max-w-6xl mx-auto overflow-hidden bg-white rounded-lg shadow-lg'>
+        <div className='md:flex'>
+          {/* Product Image Section Skeleton */}
+          <div className='p-8 md:w-1/2'>
+            <div className='flex items-center justify-center p-4 rounded-lg bg-gray-50'>
+              <div className='w-full h-[400px] bg-gray-200 animate-pulse rounded-lg'></div>
+            </div>
+          </div>
+
+          {/* Product Details Section Skeleton */}
+          <div className='p-8 md:w-1/2'>
+            <div className='mb-4'>
+              <div className='w-24 h-6 bg-blue-200 rounded animate-pulse'></div>
+            </div>
+
+            <div className='mb-4'>
+              <div className='w-3/4 h-8 bg-gray-200 rounded animate-pulse'></div>
+            </div>
+
+            <div className='flex items-center mb-6'>
+              <div className='flex items-center'>
+                {[...Array(5)].map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-5 h-5 bg-gray-300 animate-pulse rounded-full ${
+                      index < 3 ? 'bg-yellow-400' : 'bg-gray-300'
+                    }`}
+                  ></div>
+                ))}
+                <span className='w-24 h-4 ml-2 bg-gray-200 rounded animate-pulse'></span>
+              </div>
+            </div>
+
+            <div className='mb-8'>
+              <div className='w-40 h-8 bg-gray-200 rounded animate-pulse'></div>
+            </div>
+
+            <div className='mb-8'>
+              <div className='w-full h-6 bg-gray-200 rounded animate-pulse'></div>
+              <div className='w-full h-6 mt-4 bg-gray-200 rounded animate-pulse'></div>
+            </div>
+
+            <div className='flex gap-4'>
+              <div className='w-full h-12 bg-blue-600 rounded animate-pulse'></div>
+              <div className='w-full h-12 bg-blue-100 rounded animate-pulse'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
