@@ -3,9 +3,11 @@ import Footer from './components/Footer';
 import { Outlet } from 'react-router-dom';
 function App() {
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
       <Header />
-      <Outlet />
+      <div className='flex items-center justify-center flex-1 bg-gray-100'>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
