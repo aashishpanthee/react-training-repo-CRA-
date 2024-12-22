@@ -6,6 +6,7 @@ import Contact from '../components/Contact';
 import ProductCardDetail from '../components/ProductCardDetail';
 import About1 from '../components/About1';
 import { fetchUserProfile } from '../components/About1';
+import About from '../components/About';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -18,8 +19,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/about',
-        element: <About1 />,
-        loader: fetchUserProfile,
+        element: <About />,
+        // element: <About1 />,
+        // loader: fetchUserProfile,
       },
       {
         path: '/contact',
