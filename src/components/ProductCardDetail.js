@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useProductCardDetail } from '../hooks/useProductCardDetail';
 
 const ProductCardDetail = () => {
   const { id } = useParams();
-  const [productDetail, setProductDetail] = useState(null);
-
-  useEffect(() => {
-    async function fetchApiProducts() {
-      const data = await fetch('https://fakestoreapi.com/products/' + id);
-      const productsData = await data.json();
-      setProductDetail(productsData);
-    }
-    fetchApiProducts();
-  }, [id]);
+  const productDetail = useProductCardDetail(id);
 
   if (!productDetail) {
     return <ProductCardDetailShimmer />;
